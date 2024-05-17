@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&family=Yellowtail&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  
+* {
+  font-family: "Sriracha", cursive;
+  box-sizing: border-box;
+}
+
+#logo {
+  font-family: "Yellowtail", cursive;
+}
+
+#scrollbar {
+   &::-webkit-scrollbar {
+    display: none;
+   }
+}
+
+
