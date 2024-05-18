@@ -13,12 +13,15 @@ import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 import Profile from "./pages/profile/profile";
 import Register from "./pages/register/register";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
   const {currentUser} = useContext(AuthContext);
+  const queryClient = new QueryClient();
 
   const Layout = () => {
     return (
+      <QueryClientProvider client={queryClient}>
         <div>
         <NavBar />
         <div className="flex max-w-[110rem] justify-center mx-auto">
@@ -29,6 +32,7 @@ function App() {
           <RightBar />
         </div>
         </div>
+        </QueryClientProvider>
     );
   };
 

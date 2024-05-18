@@ -3,14 +3,32 @@ import { Input } from "@/components/ui/input";
 import { AuthContext } from "@/context/authContext";
 import React from "react";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+  const [err, setErr] = useState(null);
 
+  const navigate = useNavigate()
+
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
   const { login } = useContext(AuthContext);
 
-  const handleLogin = () => {
-    login();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(inputs);
+      navigate('/')
+    } catch (err) {
+      setErr(err.response.data);
+    }
   };
 
   return (
@@ -41,13 +59,18 @@ const Login = () => {
                 placeholder="Username"
                 required
                 className=" mb-5"
+                name="username"
+                onChange={handleChange}
               />
               <Input
                 type="password"
                 placeholder="Password"
                 required
                 className="mb-14"
+                name="password"
+                onChange={handleChange}
               />
+              {err && err}
               <div>
                 <Button className="bg-gradient-to-tl from-violet-600 to-indigo-600 w-[150px]" onClick={handleLogin}>
                   Login

@@ -9,9 +9,16 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import multer from "multer";
 
+app.use((req,res,next)=>{
+	res.header("Access-Control-Allow-Credentials", true)
+	next()
+})
+
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+	origin:"http://localhost:3000",
+}));
 app.use(cookieParser());
 
 const storage = multer.diskStorage({
